@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import  { pagesReducer, currentPageReducer, totalPagesReducer } from './reducer_pages';
+import  { pagesReducer, currentPageReducer, totalPagesReducer, displayingReducer, currentIssueDisplayReducer} from './reducer_pages';
 
 const rootReducer = combineReducers({
   pagesReducer,
   currentPageReducer,
-  totalPagesReducer
+  totalPagesReducer,
+  displayingReducer,
+  currentIssueDisplayReducer
 });
 
 export default rootReducer;

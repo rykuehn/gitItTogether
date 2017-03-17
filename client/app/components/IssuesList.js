@@ -13,8 +13,8 @@ class IssuesList extends Component {
     var currentPageList = this.props.pages[this.props.current];
     return(
       <div style={styles.container}>
-        {currentPageList.map(issue => {
-          return <PreviewContainer key={issue.id} issue={issue}/>
+        {currentPageList.map((issue, i) => {
+          return <PreviewContainer key={issue.id} issue={issue} position={i}/>
         })}
       </div>
     )

@@ -5,8 +5,9 @@ import axios from 'axios';
 
 import IssuesList from './IssuesList';
 import PageScroll from './PageScroll';
+import PreviewContainer from './PreviewContainer';
 
-import { issues, currentPage } from '../actions/actions_pages';
+import { issues, currentPage, displayIssue, hideIssue } from '../actions/actions_pages';
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +27,14 @@ class App extends Component {
   }
   
   render () {
-    if(this.props.totalPages > 0){
+    if(this.props.display) {
+      return (
+        <div>
+          <p onClick={this.props.hideIssue}> Go Back </p>
+          <PreviewContainer issue={this.props.pages[this.props.current][this.props.currentIssue]}/>
+        </div>
+      )
+    } else if (this.props.totalPages > 0){
       return (
         <div style={styles.body}>
           <h1 onClick={() => this.props.currentPage(0)}> GitItTogether</h1>
@@ -49,11 +57,13 @@ class App extends Component {
       pages: state.pagesReducer,
       current: state.currentPageReducer,
       totalPages: state.totalPagesReducer,
+      currentIssue: state.currentIssueDisplayReducer,
+      display: state.displayingReducer,
     }
   }
 
   const mapDispatchToProps = dispatch => { 
-    return bindActionCreators({ issues, currentPage }, dispatch);
+    return bindActionCreators({ issues, currentPage, displayIssue, hideIssue }, dispatch);
   }
 
   const styles= {

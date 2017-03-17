@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import { CREATE_ISSUES_LIST, GET_CURRENT_PAGE } from '../actions/actions_pages';
+import { CREATE_ISSUES_LIST, GET_CURRENT_PAGE, DISPLAY_ISSUE, HIDE_ISSUE } from '../actions/actions_pages';
 
 export function pagesReducer(pages = {}, action){
   const pageCopy = _.extend({}, pages)
@@ -12,7 +12,7 @@ export function pagesReducer(pages = {}, action){
         pageCopy[i] = action.payload.data.splice(0, 25);
       }
       return pageCopy;
-    default: 
+    default:
       return pages;
   }
 }
@@ -38,5 +38,28 @@ export function totalPagesReducer(pageCount = 0, action) {
       return pageCountCopy;
     default: 
       return pageCount;
+  }
+}
+
+export function displayingReducer(display = false, action) {
+  let displayCopy = display;
+console.log(action)
+  switch(action.type) {
+    case DISPLAY_ISSUE:
+      return !displayCopy;
+    case HIDE_ISSUE:
+    console.log(action.type, displayCopy)
+      return !displayCopy;
+    default:
+      return display;
+  }
+}
+
+export function currentIssueDisplayReducer(currentIssue = 0, action){
+  switch(action.type){
+    case DISPLAY_ISSUE:
+      return action.payload.id;
+    default:
+      return currentIssue;
   }
 }
