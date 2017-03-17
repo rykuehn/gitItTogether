@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import PreviewContainer from './PreviewContainer';
 
 class IssuesList extends Component {
@@ -7,14 +10,23 @@ class IssuesList extends Component {
   }
 
   render() {
+    var currentPageList = this.props.pages[this.props.current];
     return(
       <div style={styles.container}>
-        {this.props.issues.slice(0, 25).map(issue => {
-          return <PreviewContainer issue={issue} key={issue.id} />
+        {currentPageList.map(issue => {
+          return <PreviewContainer key={issue.id} issue={issue}/>
         })}
       </div>
     )
     
+  }
+}
+
+
+const mapStateToProps = state => {
+  return {
+    pages: state.pagesReducer,
+    current: state.currentPageReducer,
   }
 }
 
@@ -29,4 +41,4 @@ const styles ={
     flexDirection: 'column'
   }
 }
-export default IssuesList;
+export default connect(mapStateToProps, null)(IssuesList);

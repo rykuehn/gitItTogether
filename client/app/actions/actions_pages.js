@@ -14,7 +14,7 @@ export function issues(data) {
 };
 
 export function currentPage(page) {
-  console.log(page)
+  console.log('worked')
   return {
     type: GET_CURRENT_PAGE,
     page

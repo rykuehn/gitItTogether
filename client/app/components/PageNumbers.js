@@ -1,8 +1,9 @@
 import React from 'react';
 
 const PageNumbers = (props) => {
+  console.log(props,'nums')
   return (
-      <p style={styles.text}>
+      <p onClick={() => props.click(props.num)} style={styles.text}>
         {props.num}
       </p>
   )

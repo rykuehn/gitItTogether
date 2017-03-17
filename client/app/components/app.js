@@ -26,12 +26,20 @@ class App extends Component {
   }
   
   render () {
+    if(this.props.totalPages > 0){
       return (
         <div style={styles.body}>
           <h1 onClick={() => this.props.currentPage(0)}> GitItTogether</h1>
+          <IssuesList currentPage={this.props.current}/>
           <PageScroll pageNums={this.props.totalPages} />
         </div>
       ) 
+    } else {
+      return (
+        <div> Loading </div>
+        )
+      
+    }
     }
   }
 

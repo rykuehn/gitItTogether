@@ -8,7 +8,7 @@ export function pagesReducer(pages = {}, action){
     case CREATE_ISSUES_LIST:
       //create a key with the page number with the value being
       //all the issues associated with that page.
-      for(var i = 1; i<= action.payload.length; i++){
+      for(var i = 1; i<= action.payload.numOfPages; i++){
         pageCopy[i] = action.payload.data.splice(0, 25);
       }
       return pageCopy;
