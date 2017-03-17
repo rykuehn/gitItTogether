@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import { pages, currentPage } from './reducer_pages';
+import  { pagesReducer, currentPageReducer, totalPagesReducer } from './reducer_pages';
 
 const rootReducer = combineReducers({
-  pages,
-  currentPage
+  pagesReducer,
+  currentPageReducer,
+  totalPagesReducer
 });
 
 export default rootReducer;

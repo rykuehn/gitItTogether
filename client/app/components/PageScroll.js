@@ -1,12 +1,11 @@
 import React from 'react';
-import PageNumber from './PageNumbers';
+import PageNumbers from './PageNumbers';
 
 const PageScroll = (props) => {
-  const Pages = Math.ceil(props.numbers / 25);
 
   return (
       <div style={styles.container}>
-        {() => create()}
+       
       </div>
   )
 }

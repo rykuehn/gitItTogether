@@ -1,49 +1,42 @@
-import { combineReducers } from 'redux'
 import _ from 'underscore';
-import { REQUEST_PAGE, RECEIVE_PAGE } from '../actions/actions_pages';
+import { CREATE_ISSUES_LIST, GET_CURRENT_PAGE } from '../actions/actions_pages';
 
-export function pages(pages ={}, action) {
-  const pageCopy = _.extend({}, pages);
+export function pagesReducer(pages = {}, action){
+  const pageCopy = _.extend({}, pages)
+  
   switch(action.type) {
-    case REQUEST_PAGE:
-      return 
-        pageCopy[action.payload.page] = {
-          id: [],
-          fetching: true
-        }
-    case RECEIVE_PAGE:
-      return 
-        pageCopy[action.payoad.page] = {
-          ids: action.payload.results.filter(item => item.id),
-          fetching: false
-        
+    case CREATE_ISSUES_LIST:
+      //create a key with the page number with the value being
+      //all the issues associated with that page.
+      for(var i = 1; i<= action.payload.length; i++){
+        pageCopy[i] = action.payload.data.splice(0, 25);
       }
+      return pageCopy;
     default: 
       return pages;
   }
 }
 
-export function currentPage(currentPage = 1, action = {}){
-  return action.type == REQUEST_PAGE ? action.payload.page : currentPage
+export function currentPageReducer(current = 1, action) {
+  let currentPageCopy = current;
+
+  switch(action.type) {
+    case GET_CURRENT_PAGE: 
+      currentPageCopy = action.page;
+      return currentPageCopy;
+    default: 
+      return current;
+  }
 }
 
-// const todos = (todos = {}, action = {}) {
-//   switch (action.type) {
-//     case 'RECEIVE_ALL_TODOS':
-//     case 'RECEIVE_TODO_PAGE':
-//       let _todos = {}
-//       for (let todo of action.payload.todos) {
-//         _todos = {
-//           ..._todos,
-//           [todo.id]: todo
-//         }
-//       }
-//       return {
-//         ...todos,
-//         ..._todos
-//       }
-//     default:
-//       return todos
-//   }
-// }
+export function totalPagesReducer(pageCount = 0, action) {
+  let pageCountCopy = pageCount;
 
+  switch(action.type) {
+    case CREATE_ISSUES_LIST:
+      pageCountCopy = action.payload.numOfPages;
+      return pageCountCopy;
+    default: 
+      return pageCount;
+  }
+}

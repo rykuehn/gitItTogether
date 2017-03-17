@@ -11,7 +11,6 @@ const PageNumbers = (props) => {
 const styles = {
   text: {
     fontFamily: 'PT Sans Narrow',
-    border: '1px solid green'
   }
 }
 
