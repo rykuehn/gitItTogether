@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import PreviewUser from './PreviewUser';
 import PreviewHeading from './PreviewHeading';
 import PreviewText from './PreviewText';
+import Comments from './Comments';
 import { displayIssue } from '../actions/actions_pages';
 
 const PreviewContainer = (props) => {
@@ -14,7 +15,13 @@ const PreviewContainer = (props) => {
       <div style={styles.container}>
         <PreviewHeading issue={props.issue}/>
         <PreviewText text={props.issue.body}/>
-        <PreviewUser user={props.issue.user}/>
+        <div>@<a href={`https://github.com/${props.issue.user.login}`} style={styles.user}>{props.issue.user.login}</a></div>
+        <div> {props.issue.state} </div>
+        {props.issue.labels.map(label => {
+          return <div> {label.name} </div>
+        })}
+        <img src={props.issue.user.avatar_url} />
+        <Comments url={props.issue.comments_url} />
     </div>
     ) 
    } else{
