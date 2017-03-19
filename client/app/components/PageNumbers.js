@@ -11,6 +11,9 @@ const PageNumbers = (props) => {
 const styles = {
   text: {
     fontFamily: 'PT Sans Narrow',
+    margin: '1vw',
+    fontFamily: 'Work Sans',
+    fontWeight: 'bold'
   }
 }
 

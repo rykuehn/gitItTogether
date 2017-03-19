@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import PreviewContainer from './PreviewContainer';
+import PageScroll from './PageScroll';
 
 class IssuesList extends Component {
   constructor(props) {
@@ -10,12 +11,19 @@ class IssuesList extends Component {
   }
 
   render() {
-    var currentPageList = this.props.pages[this.props.current];
+    const { pages, selectedPage, pageNums } = this.props;
+    var currentPageList = pages[selectedPage];
+
     return(
       <div style={styles.container}>
-        {currentPageList.map((issue, i) => {
-          return <PreviewContainer key={issue.id} issue={issue} position={i}/>
-        })}
+        <div style={styles.previewContainer}>
+          {currentPageList.map((issue, i) => {
+            return <PreviewContainer key={issue.id} issue={issue} position={i}/>
+          })}
+        </div>
+        <div>
+         <PageScroll style={styles.pageScroll} pageNums={pageNums} />
+        </div>
       </div>
     )
     
@@ -26,19 +34,32 @@ class IssuesList extends Component {
 const mapStateToProps = state => {
   return {
     pages: state.pagesReducer,
-    current: state.currentPageReducer,
+    selectedPage: state.currentPageReducer,
+    pageNums: state.totalPagesReducer
   }
 }
 
 const styles ={
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
-    width: '130vmin',
-    border: '1px solid red',
+    backgroundColor: '#F7EDE2',
+    height: '100%',
+    width: '100%',
     justifyContent: 'flex-start',
-    alignItems: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  previewContainer: {
+    backgroundColor: 'white',
+    borderRadius: '1px',
+    width: '75vw',
+    height: '100%',
+    display: 'flex',
     flexDirection: 'column'
+  },
+  pageScroll: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 }
 export default connect(mapStateToProps, null)(IssuesList);

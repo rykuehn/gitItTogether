@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { browserHistory, Link } from 'react-router';
+
 
 import PreviewUser from './PreviewUser';
 import PreviewHeading from './PreviewHeading';
@@ -10,30 +12,17 @@ import Comments from './Comments';
 import { displayIssue } from '../actions/actions_pages';
 
 const PreviewContainer = (props) => {
-  if(props.display){
-     return(
-      <div style={styles.container}>
-        <PreviewHeading issue={props.issue}/>
-        <PreviewText text={props.issue.body}/>
-        <div>@<a href={`https://github.com/${props.issue.user.login}`} style={styles.user}>{props.issue.user.login}</a></div>
-        <div> {props.issue.state} </div>
-        {props.issue.labels.map(label => {
-          return <div> {label.name} </div>
-        })}
-        <img src={props.issue.user.avatar_url} />
-        <Comments url={props.issue.comments_url} />
-    </div>
-    ) 
-   } else{
-    return(
-      <div onClick={() => props.displayIssue(props.current, props.position)} style={styles.container}>
+return (
+    <Link 
+    onClick={() => props.displayIssue(props.current, props.position)} style={styles.container}
+    to={{ 
+    pathname: 'issueProfile', 
+    query: { user: props.issue.user.login, IssueID: props.issue.id }}}>
         <PreviewHeading issue={props.issue}/>
         <PreviewText text={props.issue.body}/>
         <PreviewUser user={props.issue.user}/>
-    </div>
-    ) 
-   }
-  
+    </Link>
+  ) 
 }
 
 const mapStateToProps = state => {
@@ -49,10 +38,15 @@ const mapDispatchToProps = dispatch => {
 
 const styles = {
   container: {
-    border: '1px solid blue',
+    border: '1px solid #D7D9DC',
+    borderTop: '0px',
     justifyContent: 'center',
-    margin: '1vmin',
     flexGrow: 1,
+    padding: '3vmin',
+    textDecoration: 'none',
+    color: 'black'
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewContainer);
+
+

@@ -10,6 +10,12 @@ var config = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
+  devServer: {
+    inline: true,
+    contentBase: './client',
+    historyApiFallback: true,
+    port: 8100
+  },
   module : {
     loaders : [
       {

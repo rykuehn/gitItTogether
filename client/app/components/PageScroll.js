@@ -24,10 +24,10 @@ const mapDispatchToProps = dispatch => {
 
 const styles = {
   container: {
-    border: '1px solid black',
     height: '10vmin',
     width: '30vmin',
-    display: 'flex'
+    display: 'flex',
+    justifyContent: 'space-around'
   }
 }
 

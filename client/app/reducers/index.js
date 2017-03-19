@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import  { pagesReducer, currentPageReducer, totalPagesReducer, displayingReducer, currentIssueDisplayReducer} from './reducer_pages';
 
 const rootReducer = combineReducers({
@@ -6,7 +7,8 @@ const rootReducer = combineReducers({
   currentPageReducer,
   totalPagesReducer,
   displayingReducer,
-  currentIssueDisplayReducer
+  currentIssueDisplayReducer,
+  routing: routerReducer,
 });
 
 export default rootReducer;

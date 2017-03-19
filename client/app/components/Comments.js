@@ -25,18 +25,16 @@ class Comments extends Component {
     if(this.state.comments.length > 0){
       return (
       <div>
-        {this.state.comments.map(comment => {
-          return <p> {comment.body} </p>
+        {this.state.comments.map((comment, i) => {
+          return <p key={i}> {comment.body} </p>
         })}
       </div>
       )
     } else{
       return (
         <p> No Comments </p>
-      )
-      
-    }
-    
+      ) 
+    } 
   }
 
 }
