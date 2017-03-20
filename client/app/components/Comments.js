@@ -2,39 +2,39 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class Comments extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      comments: []
-    }
-  }
-
-  getComments(url){
-    axios.get(url)
-          .then(response => {
-            this.setState({comments: response.data})
-          })
+      comments: [],
+    };
   }
 
   componentDidMount() {
-    this.getComments(this.props.url)
+    this.getComments(this.props.url);
+  }
+
+  getComments(url) {
+    axios.get(url)
+          .then((response) => {
+            this.setState({ comments: response.data });
+          });
   }
 
   render() {
-    if(this.state.comments.length > 0){
+    if (this.state.comments.length > 0) {
       return (
-      <div>
-        {this.state.comments.map((comment, i) => {
-          return <p key={i}> {comment.body} </p>
-        })}
-      </div>
-      )
-    } else{
+        <div>
+          {this.state.comments.map((comment, i) => {
+            return <p key={i}> {comment.body} </p>;
+          })}
+        </div>
+      );
+    } else {
       return (
         <p> No Comments </p>
-      ) 
-    } 
+      );
+    }
   }
 
 }

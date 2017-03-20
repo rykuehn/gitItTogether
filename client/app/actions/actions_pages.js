@@ -6,8 +6,8 @@ import { browserHistory } from 'react-router';
 
 export function issues(data) {
   const issuesPerPage = 25;
-  const numOfPages= Math.ceil(data.length / issuesPerPage);
-
+  const numOfPages = Math.ceil(data.length / issuesPerPage);
+  localStorage.setItem('issues', JSON.stringify(data));
   return {
     type: CREATE_ISSUES_LIST,
     payload: {
@@ -26,7 +26,6 @@ export function currentPage(page) {
 }
 
 export function displayIssue(page, id) {
-  // browserHistory.push('issueProfile');
   return {
     type: DISPLAY_ISSUE,
     payload: {

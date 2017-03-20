@@ -1,49 +1,58 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import PreviewContainer from './PreviewContainer';
 import PageScroll from './PageScroll';
 
+import { issues } from '../actions/actions_pages';
+
 class IssuesList extends Component {
   constructor(props) {
     super(props);
   }
 
+  componentWillMount() {
+    const retrieved = localStorage.getItem('issues');
+    this.props.issues(JSON.parse(retrieved));
+  }
+
   render() {
     const { pages, selectedPage, pageNums } = this.props;
-    var currentPageList = pages[selectedPage];
+    const currentPageList = pages[selectedPage];
 
-    return(
+    return (
       <div style={styles.container}>
         <div style={styles.previewContainer}>
           {currentPageList.map((issue, i) => {
-            return <PreviewContainer key={issue.id} issue={issue} position={i}/>
+            return <PreviewContainer key={issue.id} issue={issue} position={i} />;
           })}
         </div>
         <div>
-         <PageScroll style={styles.pageScroll} pageNums={pageNums} />
+          <PageScroll style={styles.pageScroll} pageNums={pageNums} />
         </div>
       </div>
-    )
-    
+    );
   }
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     pages: state.pagesReducer,
     selectedPage: state.currentPageReducer,
-    pageNums: state.totalPagesReducer
-  }
-}
+    pageNums: state.totalPagesReducer,
+  };
+};
 
-const styles ={
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ issues }, dispatch);
+};
+
+const styles = {
   container: {
     display: 'flex',
     backgroundColor: '#F7EDE2',
-    height: '100%',
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -53,13 +62,13 @@ const styles ={
     backgroundColor: 'white',
     borderRadius: '1px',
     width: '75vw',
-    height: '100%',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   pageScroll: {
     justifyContent: 'center',
     alignItems: 'center',
-  }
-}
-export default connect(mapStateToProps, null)(IssuesList);
+  },
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(IssuesList);

@@ -1,42 +1,73 @@
-import React, { Component } from 'react'; 
-import PreviewHeading from './PreviewHeading';
-import PreviewText from './PreviewText';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Comments from './Comments';
 
 
 class ProfileDetails extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      display: null,
+    };
+  }
+
+  componentWillMount() {
+    const ID = window.location.href.split('?')[1].split('&')[0].split('=')[1];
+    this.setState({ display: JSON.parse(localStorage.getItem(ID)) });
   }
 
   render() {
-    console.log(this.props.pages, this.props.current, this.props.display)
-    const issue = this.props.pages[this.props.current][this.props.display];
-    return(
-      <div>
-        <PreviewHeading issue={issue}/>
-        <PreviewText text={issue.body}/>
+    const { total, current, display, pages } = this.props;
+    const issue = total >= 1 ? pages[current][display] : this.state.display.issue;
+
+    return (
+      <div style={styles.container}>
+        <div>
+          <div> {issue.title} </div>
+          <div> {issue.id} </div>
+          <div> {issue.state} </div>
+        </div>
+        <div style={styles.body}>{issue.body} </div>
         <div>@<a href={`https://github.com/${issue.user.login}`}>{issue.user.login}</a></div>
-        <div> {issue.state} </div>
-        {issue.labels.map(label => {
-          return <div> {label.name} </div>
-        })}
-        <img src={issue.user.avatar_url} />
+        <div className="labels">
+          {issue.labels.map((label, i) => {
+            return <div key={i}> {label.name} </div>;
+          })}
+        </div>
+        <img alt="user avatar" style={styles.image} src={issue.user.avatar_url} />
         <Comments url={issue.comments_url} />
-    </div>
-    ) 
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => {
+
+const mapStateToProps = (state) => {
   return {
     pages: state.pagesReducer,
     current: state.currentPageReducer,
-    display: state.currentIssueDisplayReducer
-  }
-}
+    display: state.currentIssueDisplayReducer,
+    total: state.totalPagesReducer,
+  };
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    width: '70vw',
+    border: '1px solid blue',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  body: {
+    border: '1px solid green',
+  },
+  image: {
+    width: '10vmin',
+    height: '10vmin',
+  },
+};
 
 
 export default connect(mapStateToProps, null)(ProfileDetails);

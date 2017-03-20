@@ -1,40 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { browserHistory, Link } from 'react-router';
-
+import { Link } from 'react-router';
 
 import PreviewUser from './PreviewUser';
 import PreviewHeading from './PreviewHeading';
 import PreviewText from './PreviewText';
-import Comments from './Comments';
 import { displayIssue } from '../actions/actions_pages';
 
 const PreviewContainer = (props) => {
-return (
-    <Link 
-    onClick={() => props.displayIssue(props.current, props.position)} style={styles.container}
-    to={{ 
-    pathname: 'issueProfile', 
-    query: { user: props.issue.user.login, IssueID: props.issue.id }}}>
-        <PreviewHeading issue={props.issue}/>
-        <PreviewText text={props.issue.body}/>
-        <PreviewUser user={props.issue.user}/>
+  localStorage.setItem(props.issue.id, JSON.stringify({ issue: props.issue }));
+  return (
+    <Link
+      onClick={() => props.displayIssue(props.current, props.position)} style={styles.container}
+      to={{
+        pathname: 'issueProfile',
+        query: { user: props.issue.user.login, IssueID: props.issue.id } }}
+    >
+      <PreviewHeading issue={props.issue} />
+      <PreviewText text={props.issue.body} />
+      <PreviewUser user={props.issue.user} />
     </Link>
-  ) 
-}
+  );
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     current: state.currentPageReducer,
-    display: state.displayingReducer
-  }
-}
+    display: state.displayingReducer,
+  };
+};
 
-const mapDispatchToProps = dispatch => { 
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ displayIssue }, dispatch);
-}
+};
 
 const styles = {
   container: {
@@ -44,9 +43,9 @@ const styles = {
     flexGrow: 1,
     padding: '3vmin',
     textDecoration: 'none',
-    color: 'black'
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(PreviewContainer);
+    color: 'black',
+  },
+};
 
+export default connect(mapStateToProps, mapDispatchToProps)(PreviewContainer);
 

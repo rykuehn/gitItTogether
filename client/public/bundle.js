@@ -4575,7 +4575,7 @@ var HIDE_ISSUE = exports.HIDE_ISSUE = 'HIDE_ISSUE';
 function issues(data) {
   var issuesPerPage = 25;
   var numOfPages = Math.ceil(data.length / issuesPerPage);
-
+  localStorage.setItem('issues', JSON.stringify(data));
   return {
     type: CREATE_ISSUES_LIST,
     payload: {
@@ -4594,7 +4594,6 @@ function currentPage(page) {
 }
 
 function displayIssue(page, id) {
-  // browserHistory.push('issueProfile');
   return {
     type: DISPLAY_ISSUE,
     payload: {
@@ -9188,15 +9187,12 @@ var _PreviewText = __webpack_require__(160);
 
 var _PreviewText2 = _interopRequireDefault(_PreviewText);
 
-var _Comments = __webpack_require__(155);
-
-var _Comments2 = _interopRequireDefault(_Comments);
-
 var _actions_pages = __webpack_require__(37);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var PreviewContainer = function PreviewContainer(props) {
+  localStorage.setItem(props.issue.id, JSON.stringify({ issue: props.issue }));
   return _react2.default.createElement(
     _reactRouter.Link,
     {
@@ -9205,7 +9201,8 @@ var PreviewContainer = function PreviewContainer(props) {
       }, style: styles.container,
       to: {
         pathname: 'issueProfile',
-        query: { user: props.issue.user.login, IssueID: props.issue.id } } },
+        query: { user: props.issue.user.login, IssueID: props.issue.id } }
+    },
     _react2.default.createElement(_PreviewHeading2.default, { issue: props.issue }),
     _react2.default.createElement(_PreviewText2.default, { text: props.issue.body }),
     _react2.default.createElement(_PreviewUser2.default, { user: props.issue.user })
@@ -9234,6 +9231,7 @@ var styles = {
     color: 'black'
   }
 };
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PreviewContainer);
 
 /***/ }),
@@ -15327,14 +15325,6 @@ var _IssuesList = __webpack_require__(156);
 
 var _IssuesList2 = _interopRequireDefault(_IssuesList);
 
-var _PreviewContainer = __webpack_require__(84);
-
-var _PreviewContainer2 = _interopRequireDefault(_PreviewContainer);
-
-var _heading = __webpack_require__(309);
-
-var _heading2 = _interopRequireDefault(_heading);
-
 var _actions_pages = __webpack_require__(37);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -15344,6 +15334,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var styles = {
+  body: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F7EDE2',
+    width: '100%',
+    margin: '0px'
+  }
+};
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -15361,12 +15364,8 @@ var App = function (_Component) {
 
       _axios2.default.get('https://api.github.com/repos/npm/npm/issues').then(function (response) {
         _this2.props.issues(response.data);
+        _reactRouter.browserHistory.push('issuesList');
       });
-    }
-  }, {
-    key: 'getIssues',
-    value: function getIssues() {
-      _reactRouter.browserHistory.push('issuesList');
     }
   }, {
     key: 'render',
@@ -15374,11 +15373,7 @@ var App = function (_Component) {
       return _react2.default.createElement(
         'div',
         { style: styles.body },
-        _react2.default.createElement(
-          'div',
-          { onClick: this.getIssues, style: styles.issuesButton },
-          ' click to load issues '
-        ),
+        this.props.totalPages >= 1 ? _react2.default.createElement(_IssuesList2.default, null) : '',
         _react2.default.createElement(
           'div',
           null,
@@ -15399,26 +15394,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({ issues: _actions_pages.issues }, dispatch);
-};
-
-var styles = {
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#F7EDE2',
-    height: '100%',
-    width: '100%'
-  },
-  issuesButton: {
-    border: '1px solid gray',
-    borderRadius: '2px',
-    padding: '10px',
-    fontFamily: 'Work Sans'
-
-  }
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
@@ -16429,6 +16404,11 @@ var Comments = function (_Component) {
   }
 
   _createClass(Comments, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.getComments(this.props.url);
+    }
+  }, {
     key: 'getComments',
     value: function getComments(url) {
       var _this2 = this;
@@ -16436,11 +16416,6 @@ var Comments = function (_Component) {
       _axios2.default.get(url).then(function (response) {
         _this2.setState({ comments: response.data });
       });
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.getComments(this.props.url);
     }
   }, {
     key: 'render',
@@ -16503,6 +16478,8 @@ var _PageScroll = __webpack_require__(158);
 
 var _PageScroll2 = _interopRequireDefault(_PageScroll);
 
+var _actions_pages = __webpack_require__(37);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16521,6 +16498,12 @@ var IssuesList = function (_Component) {
   }
 
   _createClass(IssuesList, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var retrieved = localStorage.getItem('issues');
+      this.props.issues(JSON.parse(retrieved));
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -16560,11 +16543,14 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({ issues: _actions_pages.issues }, dispatch);
+};
+
 var styles = {
   container: {
     display: 'flex',
     backgroundColor: '#F7EDE2',
-    height: '100%',
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -16574,7 +16560,6 @@ var styles = {
     backgroundColor: 'white',
     borderRadius: '1px',
     width: '75vw',
-    height: '100%',
     display: 'flex',
     flexDirection: 'column'
   },
@@ -16583,7 +16568,8 @@ var styles = {
     alignItems: 'center'
   }
 };
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(IssuesList);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(IssuesList);
 
 /***/ }),
 /* 157 */
@@ -16819,20 +16805,13 @@ exports.totalPagesReducer = totalPagesReducer;
 exports.displayingReducer = displayingReducer;
 exports.currentIssueDisplayReducer = currentIssueDisplayReducer;
 
-var _underscore = __webpack_require__(132);
-
-var _underscore2 = _interopRequireDefault(_underscore);
-
 var _actions_pages = __webpack_require__(37);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function pagesReducer() {
   var pages = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
-  var pageCopy = _underscore2.default.extend({}, pages);
-
+  var pageCopy = pages;
   switch (action.type) {
     case _actions_pages.CREATE_ISSUES_LIST:
       //create a key with the page number with the value being
@@ -16842,7 +16821,7 @@ function pagesReducer() {
       }
       return pageCopy;
     default:
-      return pages;
+      return pageCopy;
   }
 }
 
@@ -32488,13 +32467,9 @@ var _heading = __webpack_require__(309);
 
 var _heading2 = _interopRequireDefault(_heading);
 
-var _PreviewContainer = __webpack_require__(84);
+var _DisplayProfile = __webpack_require__(316);
 
-var _PreviewContainer2 = _interopRequireDefault(_PreviewContainer);
-
-var _displayProfile = __webpack_require__(315);
-
-var _displayProfile2 = _interopRequireDefault(_displayProfile);
+var _DisplayProfile2 = _interopRequireDefault(_DisplayProfile);
 
 var _index = __webpack_require__(135);
 
@@ -32524,7 +32499,7 @@ var NotFound = function NotFound() {
       { path: '/', component: _heading2.default },
       _react2.default.createElement(_reactRouter.IndexRoute, { component: _app2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: 'issuesList', component: _IssuesList2.default }),
-      _react2.default.createElement(_reactRouter.Route, { path: 'issueProfile', component: _displayProfile2.default }),
+      _react2.default.createElement(_reactRouter.Route, { path: 'issueProfile', component: _DisplayProfile2.default }),
       _react2.default.createElement(_reactRouter.Route, { path: '*', component: NotFound })
     )
   )
@@ -32975,7 +32950,8 @@ function syncHistoryWithStore(history, store) {
 }
 
 /***/ }),
-/* 315 */
+/* 315 */,
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32991,17 +32967,7 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _PreviewHeading = __webpack_require__(159);
-
-var _PreviewHeading2 = _interopRequireDefault(_PreviewHeading);
-
-var _PreviewText = __webpack_require__(160);
-
-var _PreviewText2 = _interopRequireDefault(_PreviewText);
-
 var _reactRedux = __webpack_require__(30);
-
-var _redux = __webpack_require__(20);
 
 var _Comments = __webpack_require__(155);
 
@@ -33021,19 +32987,65 @@ var ProfileDetails = function (_Component) {
   function ProfileDetails(props) {
     _classCallCheck(this, ProfileDetails);
 
-    return _possibleConstructorReturn(this, (ProfileDetails.__proto__ || Object.getPrototypeOf(ProfileDetails)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ProfileDetails.__proto__ || Object.getPrototypeOf(ProfileDetails)).call(this, props));
+
+    _this.state = {
+      display: null
+    };
+    return _this;
   }
 
   _createClass(ProfileDetails, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var ID = window.location.href.split('?')[1].split('&')[0].split('=')[1];
+      this.setState({ display: JSON.parse(localStorage.getItem(ID)) });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.pages, this.props.current, this.props.display);
-      var issue = this.props.pages[this.props.current][this.props.display];
+      var _props = this.props,
+          total = _props.total,
+          current = _props.current,
+          display = _props.display,
+          pages = _props.pages;
+
+      var issue = total >= 1 ? pages[current][display] : this.state.display.issue;
+
       return _react2.default.createElement(
         'div',
-        null,
-        _react2.default.createElement(_PreviewHeading2.default, { issue: issue }),
-        _react2.default.createElement(_PreviewText2.default, { text: issue.body }),
+        { style: styles.container },
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            null,
+            ' ',
+            issue.title,
+            ' '
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            ' ',
+            issue.id,
+            ' '
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            ' ',
+            issue.state,
+            ' '
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: styles.body },
+          issue.body,
+          ' '
+        ),
         _react2.default.createElement(
           'div',
           null,
@@ -33046,21 +33058,18 @@ var ProfileDetails = function (_Component) {
         ),
         _react2.default.createElement(
           'div',
-          null,
-          ' ',
-          issue.state,
-          ' '
+          { className: 'labels' },
+          issue.labels.map(function (label, i) {
+            return _react2.default.createElement(
+              'div',
+              { key: i },
+              ' ',
+              label.name,
+              ' '
+            );
+          })
         ),
-        issue.labels.map(function (label) {
-          return _react2.default.createElement(
-            'div',
-            null,
-            ' ',
-            label.name,
-            ' '
-          );
-        }),
-        _react2.default.createElement('img', { src: issue.user.avatar_url }),
+        _react2.default.createElement('img', { alt: 'user avatar', style: styles.image, src: issue.user.avatar_url }),
         _react2.default.createElement(_Comments2.default, { url: issue.comments_url })
       );
     }
@@ -33073,8 +33082,26 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     pages: state.pagesReducer,
     current: state.currentPageReducer,
-    display: state.currentIssueDisplayReducer
+    display: state.currentIssueDisplayReducer,
+    total: state.totalPagesReducer
   };
+};
+
+var styles = {
+  container: {
+    display: 'flex',
+    width: '70vw',
+    border: '1px solid blue',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  body: {
+    border: '1px solid green'
+  },
+  image: {
+    width: '10vmin',
+    height: '10vmin'
+  }
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(ProfileDetails);
