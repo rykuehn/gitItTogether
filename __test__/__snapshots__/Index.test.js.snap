@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Heading renders correctly 1`] = `
+<div
+  style={
+    Object {
+      "alignContent": "space-between",
+      "alignItems": "center",
+      "backgroundColor": "#F7EDE2",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "margin": "0px",
+      "width": "100%",
+    }
+  }
+>
+  
+  <div />
+</div>
+`;
+
+exports[`undefined 1`] = `
+<div
+  style={
+    Object {
+      "alignContent": "space-between",
+      "alignItems": "center",
+      "backgroundColor": "#F7EDE2",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "margin": "0px",
+      "width": "100%",
+    }
+  }
+>
+  
+  <div />
+</div>
+`;

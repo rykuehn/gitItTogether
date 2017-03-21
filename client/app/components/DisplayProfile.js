@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Comments from './Comments';
 
 
-class ProfileDetails extends Component {
+export class ProfileDetails extends Component {
   constructor(props) {
     super(props);
 

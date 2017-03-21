@@ -20,7 +20,7 @@ const styles = {
   },
 };
 
-class App extends Component {
+export class App extends Component {
 
   componentWillMount() {
     axios.get('https://api.github.com/repos/npm/npm/issues')

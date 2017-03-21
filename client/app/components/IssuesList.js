@@ -22,7 +22,7 @@ class IssuesList extends Component {
     const currentPageList = pages[selectedPage];
 
     return (
-      <div style={styles.container}>
+      <div className="Issues" style={styles.container}>
         <div style={styles.previewContainer}>
           {currentPageList.map((issue, i) => {
             return <PreviewContainer key={issue.id} issue={issue} position={i} />;
