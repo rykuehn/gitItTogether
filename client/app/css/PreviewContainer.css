@@ -1,6 +1,6 @@
 .preview {
   border: 1px solid #D7D9DC;
-  border-top: 0px;
+  border-bottom: 0px;
   justify-content: center;
   flex-grow: 1;
   padding: 2vmin;
@@ -9,20 +9,24 @@
 }
 
 .preview:hover {
-  background-color: #F1F2F3;
+  background-color: #F3F9F9;
 }
 
 .title {
   font-weight: bold;
   font-family: 'PT Sans Narrow';
-  font-size: 2vmin;
+  font-size: 1.5em;
+  line-height: 0.9;
 }
 
 .issue {
   font-weight: lighter;
   font-family: 'PT Sans Narrow';
   color: grey;
-  font-size: 1.5vmin;
+  font-size: 1em;
+  padding-bottom: 1vh;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 .previewWrapper {
@@ -32,13 +36,15 @@
 .exclamation {
   margin-right: 1.5vw;
   padding-top: 3vmin;
+  color: #51797D;
 }
 
 .initalInfo {
   margin-bottom: 2px;
+
 }
 
 .previewBody {
   font-family: 'PT Sans Narrow';
-  font-size: 2vmin;
+  font-size: 1em;
 }
