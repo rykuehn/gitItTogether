@@ -1,0 +1,24 @@
+
+.container {
+  display: flex;
+  background-color: #F7EDE2;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.previewContainer {
+  background-color: white;
+  border-radius: 1px;
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+}
+.pageScroll {
+  justify-content: center;
+  align-items: center;
+}
+
+
+
