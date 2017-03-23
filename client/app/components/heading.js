@@ -2,7 +2,7 @@ import React from 'react';
 
 require('../css/Heading.css');
 
-export const Heading = (props) => {
+const Heading = (props) => {
   return (
     <div>
       <div className="headingContainer">
@@ -13,4 +13,6 @@ export const Heading = (props) => {
     </div>
   );
 };
+
+export default Heading;
 

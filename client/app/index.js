@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import ContainerApp from './components/app';
 import ContainerIssuesList from './components/IssuesList';
-import ContainerHeading from './components/heading';
+import Heading from './components/heading';
 import ContainerProfileDetails from './components/DisplayProfile';
 
 import reducers from './reducers/index';
@@ -20,7 +20,7 @@ const NotFound = () => <h1>404... This page is not found!</h1>;
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={ContainerHeading}>
+      <Route path="/" component={Heading}>
         <IndexRoute component={ContainerApp} />
         <Route path="issuesList" component={ContainerIssuesList} />
         <Route path="issueProfile" component={ContainerProfileDetails} />
