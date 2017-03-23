@@ -2,7 +2,7 @@ import React from 'react';
 
 require('../css/Heading.css');
 
-const Heading = (props) => {
+export const Heading = (props) => {
   return (
     <div>
       <div className="headingContainer">
