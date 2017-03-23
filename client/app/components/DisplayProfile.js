@@ -15,7 +15,11 @@ export class ProfileDetails extends Component {
   }
 
   componentWillMount() {
+    // when compenent mounts, grab the ID of the preview displayed from the query.
     const ID = window.location.href.split('?')[1].split('&')[0].split('=')[1];
+   
+    // grab the information about the specific ID clicked. The information in state
+    // is held as a back up in case hte page is refreshed and it loses access to the store.
     this.setState({ display: JSON.parse(localStorage.getItem(ID)) });
   }
 
@@ -38,12 +42,11 @@ export class ProfileDetails extends Component {
             <div className="text labels">
               Labels
             </div>
-              <div className="space">
-                {issue.labels.map((label, i) => {
-                  return <span className="text" key={i}> {label.name} </span>;
-                })}
-              </div>
-            
+            <div className="labelsDiv">
+              {issue.labels.map((label, i) => {
+                return <span className="text" key={i}> {label.name} </span>;
+              })}
+            </div>
             <div className="text labels"> Comments </div>
             <Comments url={issue.comments_url} />
           </div>

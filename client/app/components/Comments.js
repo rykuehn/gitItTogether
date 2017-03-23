@@ -16,6 +16,7 @@ class Comments extends Component {
     this.getComments(this.props.url);
   }
 
+  // fetch comments specific to the issue clicked
   getComments(url) {
     axios.get(url)
           .then((response) => {

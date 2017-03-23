@@ -11,6 +11,7 @@ require('../css/IssuesList.css');
 export class IssuesList extends Component {
 
   componentWillMount() {
+    // items were stored in local storage to achieve data persistence when page refreshes.
     const retrieved = localStorage.getItem('issues');
     this.props.issues(JSON.parse(retrieved));
   }

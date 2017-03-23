@@ -49,3 +49,18 @@ a {
   letter-spacing: .3px;
   line-height: .2;
 }
+
+.pageScroll {
+  height: 10vmin;
+  width: 30vmin;
+  display: flex;
+  justify-content: center;
+}
+
+.number {
+  font-weight: bold;
+}
+
+.number:hover {
+  color: purple;
+}

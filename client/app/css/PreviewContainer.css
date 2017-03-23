@@ -1,3 +1,7 @@
+.previewWrapper {
+  display: flex;
+}
+
 .preview {
   border: 1px solid #D7D9DC;
   border-bottom: 0px;
@@ -12,11 +16,20 @@
   background-color: #F3F9F9;
 }
 
-.title {
+.initalInfo {
+  margin-bottom: 2px;
+}
+
+.previewTitle {
   font-weight: bold;
   font-family: 'PT Sans Narrow';
   font-size: 1.5em;
   line-height: 0.9;
+}
+
+.previewBody {
+  font-family: 'PT Sans Narrow';
+  font-size: 1em;
 }
 
 .issue {
@@ -27,11 +40,6 @@
   padding-bottom: 1vh;
   padding-top: 0;
   margin-top: 0;
-  
-}
-
-.previewWrapper {
-  display: flex;
 }
 
 .exclamation {
@@ -40,12 +48,5 @@
   color: #51797D;
 }
 
-.initalInfo {
-  margin-bottom: 2px;
 
-}
 
-.previewBody {
-  font-family: 'PT Sans Narrow';
-  font-size: 1em;
-}

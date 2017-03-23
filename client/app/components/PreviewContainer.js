@@ -25,7 +25,7 @@ const PreviewContainer = (props) => {
         <i className="exclamation fa fa-exclamation-circle" aria-hidden="true" />
         <div className="initalInfo">
           <div>
-            <div className="title"> {props.issue.title}</div>
+            <div className="previewTitle"> {props.issue.title}</div>
             <div className="issue"> #{props.issue.number} opened by {props.issue.user.login} </div>
           </div>
           <div className="previewBody"> {trimmedString}... </div>

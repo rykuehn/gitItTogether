@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { Heading } from '../client/app/components/heading';
 
-
 it('Heading renders correctly', () => {
   const tree = renderer.create(<Heading />).toJSON();
   expect(tree).toMatchSnapshot();

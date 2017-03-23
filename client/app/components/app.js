@@ -30,7 +30,6 @@ export class App extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
     totalPages: state.totalPagesReducer,
@@ -40,6 +39,5 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ issues }, dispatch);
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

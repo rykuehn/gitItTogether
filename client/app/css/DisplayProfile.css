@@ -42,16 +42,17 @@
  background-color: #D54F5A
 }
 
-.space {
-  margin-top: 8px;
-}
-
 .labels {
   border-top: 1px solid #F2F4F6;
   border-bottom: 1px solid #F2F4F6;
   text-decoration: underline;
   font-weight: bold;
 }
+
+.labelsDiv {
+  margin-top: 8px;
+}
+
 
 
  
