@@ -5,25 +5,29 @@
 1. [Usage](#Usage)
 2. [Approach](#Approach)
 3. [Achievements](#Achievements)
-4. [Next Steps](#Next Steps)
+4. [Future](#Future)
 
 ## Usage
 
 > clone the repo
+
 > npm install
+
 > npm run dev
+
 > Checkout the site at localhost:8100
+
 > To Test: npm test
 
-### Approach
+## Approach
 
 My general approach was to get the basic funcationality to work: api call, proper routing, onClick functionality. Then I cleaned up my code and made the React Components more concise and straightforward. Lastly, I added some styling and wrote tests.
 
-###Achievements
+##Achievements
 
 I found a clever way using local storage to allow for my data to persist when the pages are refreshed. Also, I configured React-Router to reflect different query parameters in the URL. Overall, I had a fun time starting from scratch with webpack, building components, and continually refactoring. As with most projects, there are always more things to do and optimize and I've listed a few of my ideas below. 
 
-### Next Steps
+##Future
 
 Things that I would like to continue working on:
 1. Add more tests + continuous integration
