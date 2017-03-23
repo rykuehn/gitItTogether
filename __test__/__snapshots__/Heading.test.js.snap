@@ -3,18 +3,20 @@
 exports[`Heading renders correctly 1`] = `
 <div>
   <div
-    style={
-      Object {
-        "backgroundColor": "#F6BD60",
-        "fontFamily": "Work Sans",
-        "height": "20vh",
-        "width": "100%",
-      }
-    }
+    className="headingContainer"
   >
-    <h1>
-       Issues 
+    <h1
+      className="headingTitle"
+    >
+       Github Issues 
     </h1>
+  </div>
+  <div
+    className="color"
+  >
+    <div
+      className="arrow"
+    />
   </div>
 </div>
 `;

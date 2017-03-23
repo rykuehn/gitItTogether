@@ -16,6 +16,6 @@ describe('shallow render of Heading Componenet', () => {
   });
 
   it('contains header title Issues', () => {
-    expect(component.contains(<h1> Issues </h1>)).toBe(true);
+    expect(component.contains(<h1 className="headingTitle"> Github Issues </h1>)).toBe(true);
   });
 });

@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "webpack -d --watch",
+    "dev": "webpack -d --watch & webpack-dev-server",
     "build": "webpack -p",
     "start": "webpack-dev-server"
   },
   "jest": {
-    "verbose": true,
-    "setupTestFrameworkScriptFile": "./__test__/localStorageMock.js"
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
+    }
   },
   "keywords": [],
   "author": "",
@@ -46,8 +47,10 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.2",
     "jest": "^19.0.2",
+    "jest-css-modules": "^1.1.0",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
+    "react-tools": "^0.13.3",
     "redux-mock-store": "^1.2.2",
     "style-loader": "^0.15.0",
     "webpack-combine-loaders": "^2.0.3"
