@@ -1,4 +1,4 @@
-import { CREATE_ISSUES_LIST, GET_CURRENT_PAGE, DISPLAY_ISSUE, HIDE_ISSUE } from '../actions/actions_pages';
+import { CREATE_ISSUES_LIST, GET_CURRENT_PAGE, DISPLAY_ISSUE } from '../actions/actions_pages';
 
 export function pagesReducer(pages = {}, action) {
   const pageCopy = pages;
@@ -33,22 +33,10 @@ export function totalPagesReducer(pageCount = 0, action) {
   }
 }
 
-export function displayingReducer(display = false, action) {
-  let displayCopy = display;
+export function currentIssueDisplayReducer(currentIssue = 0, action) {
   switch (action.type) {
     case DISPLAY_ISSUE:
-      return !displayCopy;
-    case HIDE_ISSUE:
-      return !displayCopy;
-    default:
-      return display;
-  }
-}
-
-export function currentIssueDisplayReducer(currentIssue = 0, action){
-  switch (action.type) {
-    case DISPLAY_ISSUE:
-      return action.payload.id;
+      return action.payload.positionOnCurrentPage;
     default:
       return currentIssue;
   }

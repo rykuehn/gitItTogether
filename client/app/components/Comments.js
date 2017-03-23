@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+require('../css/App.css');
+
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -26,14 +28,17 @@ class Comments extends Component {
       return (
         <div>
           {this.state.comments.map((comment, i) => {
-            return <p key={i}> {comment.body} </p>;
+            return (
+              <p className="text" key={i}>
+                <span><a href={`https://github.com/${comment.user.login}`}>@{comment.user.login}: </a></span>
+                {comment.body}
+              </p>
+            )
           })}
         </div>
       );
     } else {
-      return (
-        <p> No Comments </p>
-      );
+      return <p className="text"> No Comments </p>;
     }
   }
 

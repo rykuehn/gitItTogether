@@ -1,31 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export class Heading extends Component {
-  constructor(props){
-    super(props);
+require('../css/Heading.css');
 
-  }
-  render() {
-    return (
-      <div>
-        <div style={styles.heading}> 
-          <h1> Issues </h1>
-        </div>
-        {this.props.children}
+const Heading = (props) => {
+  return (
+    <div>
+      <div className="heading">
+        <h1 className="lala"> Github Issues </h1>
       </div>
-    )
-  }
- 
+      <div className="color"><div className="arrow" /></div>
+      {props.children}
+    </div>
+  );
 };
-
-var styles = {
-  heading: {
-    width: '100%',
-    height: '20vh',
-    backgroundColor: '#F6BD60',
-    fontFamily: 'Work Sans'
-
-  }
-}
 
 export default Heading;

@@ -4,13 +4,11 @@ import { bindActionCreators } from 'redux';
 
 import PreviewContainer from './PreviewContainer';
 import PageScroll from './PageScroll';
-
 import { issues } from '../actions/actions_pages';
 
-class IssuesList extends Component {
-  constructor(props) {
-    super(props);
-  }
+require('../css/IssuesList.css');
+
+export class IssuesList extends Component {
 
   componentWillMount() {
     const retrieved = localStorage.getItem('issues');
@@ -22,14 +20,14 @@ class IssuesList extends Component {
     const currentPageList = pages[selectedPage];
 
     return (
-      <div className="Issues" style={styles.container}>
-        <div style={styles.previewContainer}>
+      <div className="container">
+        <div className="previewContainer">
           {currentPageList.map((issue, i) => {
             return <PreviewContainer key={issue.id} issue={issue} position={i} />;
           })}
         </div>
         <div>
-          <PageScroll style={styles.pageScroll} pageNums={pageNums} />
+          <PageScroll className="pageScroll" pageNums={pageNums} />
         </div>
       </div>
     );
@@ -47,28 +45,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ issues }, dispatch);
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    backgroundColor: '#F7EDE2',
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
-  previewContainer: {
-    backgroundColor: 'white',
-    borderRadius: '1px',
-    width: '75vw',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  pageScroll: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(IssuesList);

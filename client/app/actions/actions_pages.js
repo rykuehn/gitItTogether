@@ -1,8 +1,6 @@
 export const CREATE_ISSUES_LIST = 'CREATE_ISSUES_LIST';
 export const GET_CURRENT_PAGE = 'GET_CURRENT_PAGE';
 export const DISPLAY_ISSUE = 'DISPLAY_ISSUE';
-export const HIDE_ISSUE = 'HIDE_ISSUE';
-import { browserHistory } from 'react-router';
 
 export function issues(data) {
   const issuesPerPage = 25;
@@ -13,30 +11,24 @@ export function issues(data) {
     payload: {
       data,
       numOfPages,
-      issuesPerPage
-    }
-  }
-};
+      issuesPerPage,
+    },
+  };
+}
 
 export function currentPage(page) {
   return {
     type: GET_CURRENT_PAGE,
-    page
-  }
+    page,
+  };
 }
 
-export function displayIssue(page, id) {
+export function displayIssue(page, positionOnCurrentPage) {
   return {
     type: DISPLAY_ISSUE,
     payload: {
       page,
-      id
-    }
-  }
-}
-
-export function hideIssue() {
-  return {
-    type: HIDE_ISSUE,
-  }
+      positionOnCurrentPage,
+    },
+  };
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Comments from './Comments';
 
+require('../css/DisplayProfile.css');
+require('../css/App.css');
 
 export class ProfileDetails extends Component {
   constructor(props) {
@@ -22,21 +24,30 @@ export class ProfileDetails extends Component {
     const issue = total >= 1 ? pages[current][display] : this.state.display.issue;
 
     return (
-      <div style={styles.container}>
-        <div>
-          <div> {issue.title} </div>
-          <div> {issue.id} </div>
-          <div> {issue.state} </div>
+      <div className="ProfileWrapper">
+        <div className="displayProfileContainer">
+          <div className="userImage"><img alt="user_avatar" src={issue.user.avatar_url} /></div>
+          <div className="information">
+            <div className="display" id={issue.state === 'open' ? 'open' : 'closed'}>
+              <div className="display title"> {issue.title} </div>
+              <div className="display meta"> #{issue.id}
+                <span> opened by <a href={`https://github.com/${issue.user.login}`}>@{issue.user.login}</a></span>
+              </div>
+            </div>
+            <div className="text">{issue.body} </div>
+            <div className="text labels">
+              Labels
+            </div>
+              <div className="space">
+                {issue.labels.map((label, i) => {
+                  return <span className="text" key={i}> {label.name} </span>;
+                })}
+              </div>
+            
+            <div className="text labels"> Comments </div>
+            <Comments url={issue.comments_url} />
+          </div>
         </div>
-        <div style={styles.body}>{issue.body} </div>
-        <div>@<a href={`https://github.com/${issue.user.login}`}>{issue.user.login}</a></div>
-        <div className="labels">
-          {issue.labels.map((label, i) => {
-            return <div key={i}> {label.name} </div>;
-          })}
-        </div>
-        <img alt="user avatar" style={styles.image} src={issue.user.avatar_url} />
-        <Comments url={issue.comments_url} />
       </div>
     );
   }
@@ -51,23 +62,5 @@ const mapStateToProps = (state) => {
     total: state.totalPagesReducer,
   };
 };
-
-const styles = {
-  container: {
-    display: 'flex',
-    width: '70vw',
-    border: '1px solid blue',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  body: {
-    border: '1px solid green',
-  },
-  image: {
-    width: '10vmin',
-    height: '10vmin',
-  },
-};
-
 
 export default connect(mapStateToProps, null)(ProfileDetails);

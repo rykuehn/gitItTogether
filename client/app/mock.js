@@ -1,5 +1,4 @@
-
- module.exports = {
+module.exports = {
   data: [
   {
     "url": "https://api.github.com/repos/npm/npm/issues/16051",

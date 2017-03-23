@@ -4,21 +4,10 @@ import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 
-import IssuesList from './IssuesList';
+import IssuesListContainer from './IssuesList';
 import { issues } from '../actions/actions_pages';
 
-const styles = {
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#F7EDE2',
-    width: '100%',
-    margin: '0px',
-  },
-};
+require('../css/App.css');
 
 export class App extends Component {
 
@@ -31,8 +20,8 @@ export class App extends Component {
   }
   render() {
     return (
-      <div style={styles.body}>
-        {this.props.totalPages >= 1 ? <IssuesList /> : ''}
+      <div className="body">
+        {this.props.totalPages >= 1 ? <IssuesListContainer /> : ''}
         <div>
           {this.props.children}
         </div>

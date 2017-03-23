@@ -3,23 +3,34 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 
-import PreviewUser from './PreviewUser';
-import PreviewHeading from './PreviewHeading';
-import PreviewText from './PreviewText';
 import { displayIssue } from '../actions/actions_pages';
+
+require('../css/PreviewContainer.css');
 
 const PreviewContainer = (props) => {
   localStorage.setItem(props.issue.id, JSON.stringify({ issue: props.issue }));
+
+  let trimmedString = props.issue.body.substr(0, 140);
+  trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(' ')));
+
   return (
     <Link
-      onClick={() => props.displayIssue(props.current, props.position)} style={styles.container}
+      onClick={() => props.displayIssue(props.current, props.position)}
       to={{
         pathname: 'issueProfile',
         query: { user: props.issue.user.login, IssueID: props.issue.id } }}
+      className="preview"
     >
-      <PreviewHeading issue={props.issue} />
-      <PreviewText text={props.issue.body} />
-      <PreviewUser user={props.issue.user} />
+      <div className="previewWrapper">
+        <i className="exclamation fa fa-exclamation-circle" aria-hidden="true" />
+        <div className="initalInfo">
+          <div>
+            <div className="title"> {props.issue.title}</div>
+            <div className="issue"> #{props.issue.number} opened by {props.issue.user.login} </div>
+          </div>
+          <div className="previewBody"> {trimmedString}... </div>
+        </div>
+      </div>
     </Link>
   );
 };
@@ -27,24 +38,11 @@ const PreviewContainer = (props) => {
 const mapStateToProps = (state) => {
   return {
     current: state.currentPageReducer,
-    display: state.displayingReducer,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ displayIssue }, dispatch);
-};
-
-const styles = {
-  container: {
-    border: '1px solid #D7D9DC',
-    borderTop: '0px',
-    justifyContent: 'center',
-    flexGrow: 1,
-    padding: '3vmin',
-    textDecoration: 'none',
-    color: 'black',
-  },
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewContainer);

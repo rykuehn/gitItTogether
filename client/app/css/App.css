@@ -1,3 +1,21 @@
+html {
+  height: 100vh;
+  }
+
+body {
+  min-height: 100vh;
+}
+
+img {
+  width: 10vmin;
+  height: 10vmin;
+  border-radius: 50%;
+}
+
+a {
+  text-decoration: none;
+}
+
 .body {
     display: flex;
     flex-direction: column;
@@ -7,4 +25,27 @@
     background-color: green;
     width: 100%;
     margin: 0px;
+}
+
+.text {
+  font-family: 'PT Sans Narrow';
+  margin: 5px;
+  padding: 1vmin;
+  font-size: 1em;
+  letter-spacing: .3px;
+  line-height: 1.5;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: .5px;
+}
+
+.meta {
+  font-weight: lighter;
+  color: #F2F4F6;
+  font-size: 1em;
+  letter-spacing: .3px;
+  line-height: .2;
 }
